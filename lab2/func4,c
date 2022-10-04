@@ -43,7 +43,7 @@ void func4()
     // Same situation with pointers
     int *arrPtr1;
     int *arrPtr2 = arr2;
-    for (arrPtr1 = arr1; arrPtr1 < arr1 + 11; arrPtr1++)
+    for (arrPtr1 = arr1; arrPtr1 < arr1 + 15; arrPtr1++)
     {
         *arrPtr1 *= 2;
     }
