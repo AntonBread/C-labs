@@ -1,8 +1,6 @@
 #include <stdint.h>
 #include "bitwise.h"
 
-// change all types to stdint ones
-
 //
 // Set Bits
 //
