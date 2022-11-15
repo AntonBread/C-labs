@@ -29,10 +29,10 @@ typedef enum {
     Change5 = 0x1       // bit 0
 } Output;
 
-int update(State* currState, Input in)
+char update(State* currState, Input in)
 {
     // Default output is 0, which means no drink or change for you
-    int out = 0;
+    char out = 0;
     switch (*currState)
     {
         case S0:
@@ -48,7 +48,7 @@ int update(State* currState, Input in)
                     out = Drink;
                     break;
                 case Coin10:
-                    out = Drink| Change5; // 0 + 10 - 5 = 5 rub change
+                    out = Drink | Change5; // 0 + 10 - 5 = 5 rub change
                     break;
             }
             break;
@@ -64,11 +64,11 @@ int update(State* currState, Input in)
                     break;
                 case Coin5:
                     (*currState) = S0;
-                    out = Drink| Change1; // 1 + 5 - 5 = 1 rub change
+                    out = Drink | Change1; // 1 + 5 - 5 = 1 rub change
                     break;
                 case Coin10:
                     (*currState) = S0;
-                    out = Drink| Change1 | Change5; // 1 + 10 - 5 = 1 + 5 rub change
+                    out = Drink | Change1 | Change5; // 1 + 10 - 5 = 1 + 5 rub change
                     break;
             }
             break;
@@ -142,8 +142,11 @@ int update(State* currState, Input in)
 int main()
 {
     State currState = S0;
-    int out = update(&currState, Coin2);
-    out = update(&currState, Coin1);
-    out = update(&currState, Coin10);
+    Input coin = Coin1;
+    char out = 0;
+    while(1)
+    {
+        out = update(&currState, coin);
+    }
     return 0;
 }
