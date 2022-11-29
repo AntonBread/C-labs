@@ -98,8 +98,20 @@ int waitForAlarm()
     unsigned int waitTime_ms;
     beginTime_ms = start.millis + (start.sec * 1000) + (start.minute * 60000) + (start.hour * 3600000);
     alarmTime_ms = (end.minute * 60000) + (end.hour * 3600000);
-    if (beginTime_ms <= 0 || alarmTime_ms <= 0 || beginTime_ms >= alarmTime_ms)
-        return -1;
+    // If alarm time is set to next day
+    if (start.hour > end.hour)
+    {
+        beginTime_ms = 86399999 - beginTime_ms;     // 86399999 is max possible time
+        if (beginTime_ms >= alarmTime_ms)
+        {
+            // XOR swap
+            beginTime_ms = beginTime_ms ^ alarmTime_ms;
+            alarmTime_ms = alarmTime_ms ^ beginTime_ms;
+            beginTime_ms = beginTime_ms ^ alarmTime_ms;
+        }
+    }
+    if (beginTime_ms < 0 || alarmTime_ms < 0 || beginTime_ms >= alarmTime_ms)
+        return ERROR;
     waitTime_ms = alarmTime_ms - beginTime_ms;
     delay_ms(waitTime_ms);
     return 1;
